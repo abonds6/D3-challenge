@@ -116,7 +116,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
     //select x label
     if (chosenXAxis === 'poverty') {
-        var xLabel = "Poverty:";
+        var xLabel = "In Poverty:";
     }
     else if (chosenXAxis === 'income') {
         var xLabel = "Income:";
@@ -128,7 +128,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     //select y label
     //percentage lacking healthcare
     if (chosenYAxis === 'healthcare') {
-        var yLabel = "No Healthcare:"
+        var yLabel = "Lacks Healthcare:"
     }
     //percentage obese
     else if (chosenYAxis === 'obesity') {
@@ -198,8 +198,9 @@ d3.csv("./assets/data/data.csv").then(function(riskData) {
         .classed("stateCircle", true)
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("r", 12)
-        .attr("opacity", ".5");
+        .attr("r", 15)
+        .attr("fill", "blue")
+    
 
     //append initial text
     var textGroup = chartGroup.selectAll(".stateText")
@@ -312,14 +313,14 @@ d3.csv("./assets/data/data.csv").then(function(riskData) {
                     incomeLabel.classed("active", false).classed("inactive", true);
                 }
                 else if (chosenXAxis === "age") {
-                    povertyLabel.classed("active", false).classed("inactive", true);
                     ageLabel.classed("active", true).classed("inactive", false);
+                    povertyLabel.classed("active", false).classed("inactive", true);
                     incomeLabel.classed("active", false).classed("inactive", true);
                 }
                 else {
+                    incomeLabel.classed("active", true).classed("inactive", false);
                     povertyLabel.classed("active", false).classed("inactive", true);
                     ageLabel.classed("active", false).classed("inactive", true);
-                    incomeLabel.classed("active", true).classed("inactive", false);
                 }
             }
         });
@@ -358,14 +359,15 @@ d3.csv("./assets/data/data.csv").then(function(riskData) {
                 healthcareLabel.classed("active", false).classed("inactive", true);
             }
             else if (chosenYAxis === "smokes") {
-                obesityLabel.classed("active", false).classed("inactive", true);
                 smokesLabel.classed("active", true).classed("inactive", false);
+                obesityLabel.classed("active", false).classed("inactive", true);
                 healthcareLabel.classed("active", false).classed("inactive", true);
             }
             else {
+                healthcareLabel.classed("active", true).classed("inactive", false);
                 obesityLabel.classed("active", false).classed("inactive", true);
                 smokesLabel.classed("active", false).classed("inactive", true);
-                healthcareLabel.classed("active", true).classed("inactive", false);
+
             }
         }
     });
